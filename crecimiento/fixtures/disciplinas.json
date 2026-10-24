@@ -1,0 +1,6 @@
+[
+  {"model": "crecimiento.disciplina", "pk": 1, "fields": {"nombre": "League of Legends Worlds", "periodo": "2011 → 2025", "equipos": 112, "premio": 4976, "duracion": 1200, "preliminar": false}},
+  {"model": "crecimiento.disciplina", "pk": 2, "fields": {"nombre": "FIFA World Cup", "periodo": "1930/1982 → 2026", "equipos": 269, "premio": 3175, "duracion": 124, "preliminar": false}},
+  {"model": "crecimiento.disciplina", "pk": 3, "fields": {"nombre": "CS2 / CS:GO Majors", "periodo": "2013 → 2025", "equipos": 100, "premio": 400, "duracion": 567, "preliminar": false}},
+  {"model": "crecimiento.disciplina", "pk": 4, "fields": {"nombre": "StarCraft II GSL/WCS", "periodo": "2012 → 2023", "equipos": -56.3, "premio": -82.7, "duracion": -36.4, "preliminar": true}}
+]

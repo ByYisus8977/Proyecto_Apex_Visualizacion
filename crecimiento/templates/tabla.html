@@ -1,0 +1,65 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es" data-bs-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>APEX — Crecimiento por disciplina</title>
+  <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+</head>
+<body>
+  <nav class="navbar bg-body-tertiary border-bottom">
+    <div class="container">
+      <span class="navbar-brand fw-bold">APEX | Capital &amp; Intelligence</span>
+      <form method="post" action="{% url 'logout' %}" class="d-flex align-items-center gap-3">
+        {% csrf_token %}
+        <span class="small text-body-secondary">Hola, {{ user.username }}</span>
+        <button type="submit" class="btn btn-outline-light btn-sm">Cerrar sesión</button>
+      </form>
+    </div>
+  </nav>
+
+  <main class="container py-4">
+    <h1 class="h3">¿Cuánto ha crecido cada torneo?</h1>
+    <p class="text-body-secondary">
+      Porcentaje de cambio desde el primer registro disponible hasta hoy, en tres métricas.
+      Un número alto indica un ecosistema en expansión (oportunidad); uno negativo, un ecosistema en contracción (riesgo).
+    </p>
+
+    <div class="table-responsive">
+      <table class="table table-striped table-hover align-middle">
+        <thead>
+          <tr>
+            <th>Disciplina</th>
+            <th>Período</th>
+            <th class="text-end">Equipos / Participantes</th>
+            <th class="text-end">Premio total (USD)</th>
+            <th class="text-end">Duración del evento</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for d in disciplinas %}
+          <tr>
+            <td>
+              {{ d.nombre }}
+              {% if d.preliminar %}<span class="badge text-bg-warning ms-1">Preliminar</span>{% endif %}
+            </td>
+            <td class="text-body-secondary">{{ d.periodo }}</td>
+            {% for valor in d.metricas %}
+            <td class="text-end {% if valor < 0 %}text-danger{% else %}text-success{% endif %}">{% if valor > 0 %}+{% endif %}{{ valor|floatformat:"-1g" }}%</td>
+            {% endfor %}
+          </tr>
+          {% empty %}
+          <tr><td colspan="5" class="text-center text-body-secondary">No hay datos cargados.</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <p class="small text-body-secondary">
+      Fuentes: Kaggle (LoL Worlds, FIFA World Cup), Liquipedia y Wikipedia (CS2, StarCraft II).
+      Las cifras de StarCraft II son aproximadas.
+    </p>
+  </main>
+</body>
+</html>
